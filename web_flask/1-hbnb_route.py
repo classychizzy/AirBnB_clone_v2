@@ -13,10 +13,10 @@ app = Flask(__name__)
 def hello_HBNB():
     return 'Hello HBNB!'
 
+
 @app.route('/hbnb', strict_slashes=False)
 def HBNB():
     return 'HBNB'
-
 
 
 """configures the port and ip of the flask app"""
