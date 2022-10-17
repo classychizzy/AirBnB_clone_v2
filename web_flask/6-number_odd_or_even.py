@@ -1,58 +1,62 @@
 #!/usr/bin/python3
-"""an app that uses flask to display text on the browser
-"""
-
-
+'''A simple Flask web application.
+'''
 from flask import Flask, render_template
+
+
 app = Flask(__name__)
-"""Flask application instance
-"""
+'''The Flask application instance.'''
+app.url_map.strict_slashes = False
 
 
-@app.route('/', strict_slashes=False)
-def hello_HBNB():
-    """hello page"""
+@app.route('/')
+def index():
+    '''The home page.'''
     return 'Hello HBNB!'
 
 
-@app.route('/hbnb', strict_slashes=False)
-def HBNB():
-    """HBNB page"""
+@app.route('/hbnb')
+def hbnb():
+    '''The hbnb page.'''
     return 'HBNB'
 
 
-@app.route('/c/<text>', strict_slashes=False)
-def C_text(text):
-    """c page"""
+@app.route('/c/<text>')
+def c_page(text):
+    '''The c page.'''
     return 'C {}'.format(text.replace('_', ' '))
 
 
-@app.route('/python/<text>', strict_slashes=False)
-@app.route('/python', defaults={'text': 'is cool'}, strict_slashes=False)
-def Python_text(text):
-    """c page"""
+@app.route('/python/<text>')
+@app.route('/python')
+def python_page(text='is cool'):
+    '''The python page.'''
     return 'Python {}'.format(text.replace('_', ' '))
 
 
-@app.route('/number/<int:n>', strict_slashes=False)
-def int_n(n):
-    """displays an integer"""
+@app.route('/number/<int:n>')
+def number_page(n):
+    '''The number page.'''
     return '{} is a number'.format(n)
 
 
-@app.route('/number_template/<int:n>', strict_slashes=False)
+@app.route('/number_template/<int:n>')
 def number_template(n):
-    """displays a template if n is a number"""
-    return render_template('5-number.html', number=n)
+    '''The number_template page.'''
+    ctxt = {
+        'n': n
+    }
+    return render_template('5-number.html', **ctxt)
 
 
-@app.route('/number_odd_or_even/<n>', strict_slashes=False)
-def odd_even(n):
-    """displays n if it is an odd or even number"""
-    return render_template('6-number_odd_or_even.html', n=n)
+@app.route('/number_odd_or_even/<int:n>')
+def number_odd_or_even(n):
+    '''The number_odd_or_even page.'''
+    ctxt = {
+        'n': n
+    }
+    return render_template('6-number_odd_or_even.html', **ctxt)
 
 
-"""configures the port and ip of the flask app"""
 if __name__ == '__main__':
-    app.run(debug=True)
-    #app.run(host="0.0.0.0", port=5000)
+    app.run(host='0.0.0.0', port='5000')
