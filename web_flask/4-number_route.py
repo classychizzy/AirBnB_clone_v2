@@ -33,6 +33,7 @@ def Python_text(text):
     """c page"""
     return 'Python {}'.format(text.replace('_', ' '))
 
+
 @app.route('/number/<int:n>', strict_slashes=False)
 def int_n(n):
     """displays an integer"""
